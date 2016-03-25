@@ -1,0 +1,93 @@
+hash: 1ef9799c10583143248f2f2077ee739beefcfd5c9e5eb99f024196b4c800f316
+updated: 2016-03-24T21:57:47.810082526+10:00
+imports:
+- name: github.com/aws/aws-sdk-go
+  version: 5f0b706aa8d7bd313a5aa92496a52f61173109d2
+  subpackages:
+  - aws
+  - aws/credentials
+  - aws/session
+  - service/s3
+  - service/sqs
+  - aws/awserr
+  - aws/client
+  - aws/corehandlers
+  - aws/defaults
+  - aws/request
+  - private/endpoints
+  - aws/awsutil
+  - aws/client/metadata
+  - private/protocol
+  - private/protocol/restxml
+  - private/signer/v4
+  - private/waiter
+  - private/protocol/query
+  - aws/credentials/ec2rolecreds
+  - aws/ec2metadata
+  - private/protocol/rest
+  - private/protocol/xml/xmlutil
+  - private/protocol/query/queryutil
+- name: github.com/dustin/go-humanize
+  version: 8929fe90cee4b2cb9deb468b51fb34eba64d1bf0
+- name: github.com/eapache/go-resiliency
+  version: b86b1ec0dd4209a588dc1285cdd471e73525c0b3
+  subpackages:
+  - breaker
+- name: github.com/eapache/queue
+  version: ded5959c0d4e360646dc9e9908cff48666781367
+- name: github.com/elastic/beats
+  version: da6c8598ef48aaa306b9126c446484d1504874ee
+  subpackages:
+  - libbeat/beat
+  - libbeat/cfgfile
+  - libbeat/common
+  - libbeat/logp
+  - libbeat/publisher
+  - libbeat/filter
+  - libbeat/service
+  - libbeat/outputs
+  - libbeat/outputs/console
+  - libbeat/outputs/elasticsearch
+  - libbeat/outputs/fileout
+  - libbeat/outputs/kafka
+  - libbeat/outputs/logstash
+  - libbeat/outputs/redis
+  - libbeat/common/streambuf
+  - libbeat/outputs/mode
+- name: github.com/garyburd/redigo
+  version: 4ed1111375cbeb698249ffe48dd463e9b0a63a7a
+  subpackages:
+  - redis
+  - internal
+- name: github.com/go-ini/ini
+  version: 12f418cc7edc5a618a51407b7ac1f1f512139df3
+- name: github.com/golang/snappy
+  version: 894fd4616c897c201d223c3c0c128e8c648c96a2
+- name: github.com/jmespath/go-jmespath
+  version: 0b12d6b521d83fc7f755e7cfc1b1fbdd35a01a74
+- name: github.com/klauspost/crc32
+  version: 6973dcf6594efa905c08260fe9120cae92ab4305
+- name: github.com/nranchev/go-libGeoIP
+  version: c78e8bd2dd3599feb21fd30886043979e82fe948
+- name: github.com/satori/go.uuid
+  version: f9ab0dce87d815821e221626b772e3475a0d2749
+- name: github.com/Shopify/sarama
+  version: 4ba9bba6adb6697bcec3841e1ecdfecf5227c3b9
+- name: github.com/urso/ucfg
+  version: 8d1a19c8ac2aacd03edd39c180d5ab2766df4331
+  subpackages:
+  - yaml
+- name: golang.org/x/net
+  version: d58ca6618b994150e624f6888d871f4709db51a0
+  subpackages:
+  - proxy
+  - publicsuffix
+- name: golang.org/x/sys
+  version: afce3de5756ca82699128ebae46ac95ad59d6297
+  subpackages:
+  - windows/svc
+  - windows/svc/debug
+  - windows
+- name: gopkg.in/yaml.v2
+  version: a83829b6f1293c91addabc89d0571c246397bbf4
+devImports: []
