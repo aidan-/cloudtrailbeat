@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"strings"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -253,8 +254,10 @@ func (cb *CloudTrailbeat) runBackfill() error {
 
 	if list, err := s.ListObjects(&q); err == nil {
 		for _, e := range list.Contents {
-			if err := cb.pushQueue(cb.backfillBucket, *e.Key); err != nil {
-				return fmt.Errorf("Queue push failed: %s", err)
+			if strings.HasSuffix(*e.Key, ".json.gz") {
+				if err := cb.pushQueue(cb.backfillBucket, *e.Key); err != nil {
+					return fmt.Errorf("Queue push failed: %s", err)
+				}
 			}
 		}
 	} else {
