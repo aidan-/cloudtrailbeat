@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -185,14 +184,14 @@ func (cb *CloudTrailbeat) Setup(b *beat.Beat) error {
 
 func (cb *CloudTrailbeat) Run(b *beat.Beat) error {
 	if cb.backfillBucket != "" {
+		logp.Info("Running in backfill mode")
 		if err := cb.runBackfill(); err != nil {
-			logp.Err("Error backfilling logs: %s", err)
-			os.Exit(1)
+			return fmt.Errorf("Error backfilling logs: %s", err)
 		}
 	} else {
+		logp.Info("Running in queue mode")
 		if err := cb.runQueue(); err != nil {
-			logp.Err("Error processing queue: %s", err)
-			os.Exit(1)
+			return fmt.Errorf("Error processing queue: %s", err)
 		}
 	}
 	return nil
@@ -237,7 +236,6 @@ func (cb *CloudTrailbeat) runQueue() error {
 					logp.Err("Error deleting proccessed SQS event [id: %s]: %s", m.MessageID, err)
 				}
 			}
-			logp.Info("Successfully published %d new events", len(lf.Records))
 		}
 	}
 
@@ -245,6 +243,8 @@ func (cb *CloudTrailbeat) runQueue() error {
 }
 
 func (cb *CloudTrailbeat) runBackfill() error {
+	logp.Info("Backfilling using S3 bucket: s3://%s/%s", cb.backfillBucket, cb.backfillPrefix)
+
 	s := s3.New(session.New(cb.awsConfig))
 	q := s3.ListObjectsInput{
 		Bucket: aws.String(cb.backfillBucket),
