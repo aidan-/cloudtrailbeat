@@ -70,6 +70,27 @@ CloudTrailBeat supports usage of both IAM roles and API keys, but as per AWS bes
 }
 ```
 
+### Running CloudTrailBeat
+1. Build CloudTrailBeat using the steps list above
+2. Modify the included *cloudtrailbeat.yml* file as required
+  1. Change the *sqs_url* field under the *input* section with the appropriate SQS url
+  2. Configure the *output* section to send the events to your logstash/elasticsearch instance.  More information on Beat output configuration can be found in the [official documentation](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-configuration-details.html). 
+3. If you are not using IAM Roles to grant access to the SQS and S3 buckets, you will also need to configure *~/.aws/credentials* with the an appropriate key and secret.  The [AWS docs](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-config-files) give a thorough explanation on setting up the required credentials files. 
+4. Run CloudTrailBeat in debug mode: `cloudtrailbeat -c /path/to/cloudtrailbeat.yml -d "*"`
+
+You should now see a bunch of events scrolling through your terminal and in your output source.
+
+If you are happy with the output, you will need to edit the configuration file to set `no_purge` to `false` (or delete the line).
+
+#### Backfilling
+If you would like to backfill events that have been cleared from the SQS or expired, you can run CloudTrailBeat with the `-b` flag the name of the bucket that contains the CloudTrail logs.  Example:
+
+`cloudtrailbeat -c /path/to/cloudtrailbeat.yml -d "*" -b example-cloudtrail-bucket`
+
+If you would like to backfill only a subset of a bucket, you can also include the flag `-p` with the desired bucket prefix.  Example: 
+
+`cloudtrailbeat -c /path/to/cloudtrailbeat.yml -d "*" -b example-cloudtrail-bucket -f AWSLogs/xxxxx/CloudTrail/ap-northeast-1/2016/05`
+
 ## Thanks
 This beat is heavily inspired by [AppliedTrust/traildash](https://github.com/AppliedTrust/traildash) with some updates and additional functionality.
 
