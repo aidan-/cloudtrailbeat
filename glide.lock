@@ -40,7 +40,7 @@ imports:
 - name: github.com/eapache/queue
   version: ded5959c0d4e360646dc9e9908cff48666781367
 - name: github.com/elastic/beats
-  version: b0e4aae5f3a4c2c40d2d5499156160217311a62a
+  version: a0f543d88691f3081d63fcce83defc57a631cb8c
   subpackages:
   - libbeat/beat
   - libbeat/cfgfile
