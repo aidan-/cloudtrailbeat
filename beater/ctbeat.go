@@ -90,7 +90,7 @@ type cloudtrailEvent struct {
 	UserAgent          string                 `json:"userAgent"`
 	ErrorCode          string                 `json:"errorCode"`
 	ErrorMessage       string                 `json:"errorMessage,omitempty"`
-	RequestParameters  map[string]interface{} `json:"requestParamteres"`
+	RequestParameters  map[string]interface{} `json:"requestParameters"`
 	RequestID          string                 `json:"requestID"`
 	EventID            string                 `json:"eventID"`
 	EventType          string                 `json:"eventType"`
