@@ -91,12 +91,12 @@ type cloudtrailEvent struct {
 	ErrorCode          string                 `json:"errorCode"`
 	ErrorMessage       string                 `json:"errorMessage,omitempty"`
 	RequestParameters  map[string]interface{} `json:"requestParamteres"`
-	ResponseElements   map[string]interface{} `json:"responseElements"`
 	RequestID          string                 `json:"requestID"`
 	EventID            string                 `json:"eventID"`
 	EventType          string                 `json:"eventType"`
 	APIVersion         string                 `json:"apiVersion"`
 	RecipientAccountID string                 `json:"recipientAccountID"`
+	//ResponseElements   map[string]interface{} `json:"responseElements"`
 }
 
 func init() {
