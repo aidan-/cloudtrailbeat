@@ -255,12 +255,15 @@ func (cb *CloudTrailbeat) runBackfill() error {
 	if list, err := s.ListObjects(&q); err == nil {
 		for _, e := range list.Contents {
 			if strings.HasSuffix(*e.Key, ".json.gz") {
+				logp.Info("Found log file to add to queue: %s", *e.Key)
 				if err := cb.pushQueue(cb.backfillBucket, *e.Key); err != nil {
+					logp.Err("Failed to push log file onto queue: %s", err)
 					return fmt.Errorf("Queue push failed: %s", err)
 				}
 			}
 		}
 	} else {
+		logp.Err("Unable to list objects in bucket: %s", err)
 		return fmt.Errorf("Failed to list bucket objects: %s", err)
 	}
 	return nil
