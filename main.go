@@ -7,7 +7,7 @@ import (
 	"github.com/elastic/beats/libbeat/beat"
 )
 
-var Version = "0.0.2"
+var Version = "0.0.3"
 var Name = "cloudtrailbeat"
 
 func main() {
