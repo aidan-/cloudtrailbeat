@@ -1,16 +1,16 @@
 package: github.com/aidan-/cloudtrailbeat
 import:
 - package: github.com/aws/aws-sdk-go
+  version: ^1.5.2
   subpackages:
   - aws
-  - aws/credentials
   - aws/session
   - service/s3
   - service/sqs
 - package: github.com/elastic/beats
+  version: ^5.0.0
   subpackages:
   - libbeat/beat
-  - libbeat/cfgfile
   - libbeat/common
   - libbeat/logp
   - libbeat/publisher

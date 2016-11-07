@@ -3,15 +3,16 @@ package main
 import (
 	"os"
 
-	"github.com/aidan-/cloudtrailbeat/beater"
 	"github.com/elastic/beats/libbeat/beat"
+
+	"github.com/aidan-/cloudtrailbeat/beater"
 )
 
-var Version = "0.0.3"
-var Name = "cloudtrailbeat"
+var version = "0.1.0"
 
 func main() {
-	if err := beat.Run(Name, Version, beater.New()); err != nil {
+	err := beat.Run("cloudtrailbeat", version, beater.New)
+	if err != nil {
 		os.Exit(1)
 	}
 }

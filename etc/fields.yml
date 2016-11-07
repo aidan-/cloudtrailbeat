@@ -1,136 +1,117 @@
-version: 1.0
-
-defaults:
-  type: string
-  required: false
-  index: not_analyzed
-  doc_values: true
-  ignore_above: 1024
-
-env:
-  type: group
-  description: >
-    Contains common fields available in all event types.
-  fields:
-    - name: beat.name
-      description: >
-        The name of the Beat sending the log messages. If the shipper name is set
-        in the configuration file, then that value is used. If it is not set,
-        the hostname is used.
-
-    - name: beat.hostname
-      description: >
-        The hostname as returned by the operating system on which the Beat is
-        running.
-
-    - name: "@timestamp"
-      type: date
-      required: true
-      format: YYYY-MM-DDTHH:MM:SS.milliZ
-      example: 2015-01-24T14:06:05.071Z
-      description: >
-        The timestamp when the HTTP url was called. The precision is in
-        milliseconds. The timezone is UTC.
-
-    - name: type
-      required: true
-      description: >
-        The name of the log event. This field is set to the value specified for the `document_type` option in the url section of the Execbeat config file.
-
-    - name: fields
-      type: dict
-      required: false
-      description: >
-        Contains user configurable fields.
-
-cloudtrail:
-  type: group
-  description: >
-    Contains information about a CloudTrail event
+- key: cloudtrailbeat
+  title: cloudtrailbeat
+  description:
   fields:
     - name: cloudtrail
       type: group
-      description: >
-          Contains CloudTrail access logs.
+      description: Contains CloudTrail access logs.
 
       fields:
         - name: eventTime
-          type: string
-          description: >
-            The date and time the request was made, in coordinated universal time (UTC).
+          description: The date and time the request was made, in coordinated universal time (UTC).
+          type: keyword
 
         - name: eventVersion
-          type: string
-          description: >
-            The version of the log event format. The current version is 1.02.
-    
+          description: The version of the log event format. The current version is 1.02.
+          type: keyword
+
         - name: userIdentity
-          type: string
-          description: >
-            Information about the user that made a request. For more information, see CloudTrail userIdentity Element 
-    
+          description: Information about the user that made a request. For more information, see CloudTrail userIdentity Element 
+          type: group
+
+          fields:
+            - name: type
+              description: The request was made with your AWS account credentials.
+              type: keyword
+            - name: userName
+              description: The friendly name of the identity that made the call.
+              type: keyword
+            - name: principalId
+              description: A unique identifier for the entity that made the call.
+              type: keyword
+            - name: arn
+              description: The Amazon Resource Name (ARN) of the principal that made the call.
+              type: keyword
+            - name: accountId
+              description: The account that owns the entity that granted permissions for the request.
+              type: keyword
+            - name: accessKeyId
+              description: The access key ID that was used to sign the request.
+              type: keyword
+            - name: sessionContext
+              description: If the request was made with temporary security credentials, an element that provides information about the session that was created for those credentials. 
+              type: group
+              fields:
+
+              - name: attributes
+                type: group
+                fields:
+                  
+                  - name: creationDate
+                    description: The date and time when the temporary security credentials were issued. 
+                    type: keyword
+                  - name: mfaAuthenticated
+                    description: The value is true if the root user or IAM user whose credentials were used for the request also was authenticated with an MFA device; otherwise, false.
+                    type: keyword
+
+            - name: invokedBy
+              description: The name of the AWS service if that made the request, such as Auto Scaling or AWS Elastic Beanstalk.
+              type: keyword
+            - name: sessionIssuer
+              description: If the request was made with temporary security credentials, an element that provides information about how the credentials were obtained.
+              type: keyword
+            - name: webIdFederationData
+              description: If the request was made with temporary security credentials obtained by web identity federation, an element that lists information about the identity provider. 
+              type: keyword
+
         - name: eventSource
-          type: string
-          description: >
-            The service that the request was made to. This name is normally a short form of the service name without spaces plus .amazonaws.com. For example, the eventSource field lists a call to AWS CloudFormation as cloudformation.amazonaws.com, a call to Amazon EC2 as ec2.amazonaws.com, and a call to Amazon Simple Workflow Service as swf.amazonaws.com. One exception to this convention is CloudWatch, for which the event source is monitoring.amazonaws.com.
-    
+          description: The service that the request was made to. This name is normally a short form of the service name without spaces plus .amazonaws.com. For example, the eventSource field lists a call to AWS CloudFormation as cloudformation.amazonaws.com, a call to Amazon EC2 as ec2.amazonaws.com, and a call to Amazon Simple Workflow Service as swf.amazonaws.com. One exception to this convention is CloudWatch, for which the event source is monitoring.amazonaws.com.
+          type: keyword
+
         - name: eventName
-          type: string
-          description: >
-            The requested action, which is one of the actions listed in the API Reference for the service.
-    
+          description: The requested action, which is one of the actions listed in the API Reference for the service.
+          type: keyword
+
         - name: awsRegion
-          type: string
-          description: >
-            The AWS region that the request was made to; for example, us-east-1.
-    
+          description: The AWS region that the request was made to; for example, us-east-1.
+          type: keyword
+
         - name: sourceIPAddress
-          type: string
-          description: >
-            The apparent IP address that the request was made from. For actions that originate from the service console, the address reported is for the underlying customer resource, not the console web server. For services in AWS, only the DNS name is displayed.
-    
+          description: The apparent IP address that the request was made from. For actions that originate from the service console, the address reported is for the underlying customer resource, not the console web server. For services in AWS, only the DNS name is displayed.
+          type: keyword
+
         - name: errorCode
-          type: string
-          description: >
-            The AWS service error if the request returns an error.
-    
+          description: The AWS service error if the request returns an error.
+          type: keyword
+
         - name: errorMessage
-          type: string
-          description: >
-            If the request returns an error, the description of the error. This message includes messages for authorization failures.
-    
+          description: If the request returns an error, the description of the error. This message includes messages for authorization failures.
+          type: keyword
+
         - name: requestParameters
-          type: string
-          description: >
-            The parameters, if any, that were sent with the request.
-    
+          description: The parameters, if any, that were sent with the request.
+          type: keyword
+
         - name: responseElements
-          type: string
-          description: >
-            The response element for actions that make changes (create, update, or delete actions). If an action does not change state (for example, a request to get or list objects), this element is omitted.
-    
+          description: The response element for actions that make changes (create, update, or delete actions). If an action does not change state (for example, a request to get or list objects), this element is omitted.
+          type: keyword
+
         - name: requestID
-          type: string
-          description: >
-            Value generated by the service being called that identifies the request.
-    
+          description: Value generated by the service being called that identifies the request.
+          type: keyword
+
         - name: eventID
-          type: string
-          description: >
-            GUID generated by CloudTrail to uniquely identify each event. You can use this value to identify a single event. For example, you can use the ID as a primary key to retrieve log data from a searchable database.
-    
+          description: GUID generated by CloudTrail to uniquely identify each event. You can use this value to identify a single event. For example, you can use the ID as a primary key to retrieve log data from a searchable database.
+          type: keyword
+
         - name: eventType
-          type: string
-          description: >
-            Identifies the type of event that generated the event record.
-    
+          description: Identifies the type of event that generated the event record.
+          type: keyword
+
         - name: apiVersion
-          type: string
-          description: >
-            Identifies the API version number associated with the AwsApiCall eventType value.
-    
+          description: Identifies the API version number associated with the AwsApiCall eventType value.
+          type: keyword
+
         - name: recipientAccountID
-          type: string
-          description: >
-            Represents the account ID that received this event.
-    
+          description: Represents the account ID that received this event.
+          type: keyword

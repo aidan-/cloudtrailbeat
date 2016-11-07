@@ -1,0 +1,5 @@
+= Cloudtrailbeat Docs
+
+Welcome to the Cloudtrailbeat documentation.
+
+

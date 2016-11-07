@@ -1,24 +1,19 @@
-################### CloudTrailbeat Configuration Example #########################
- 
-##################################################################################
-input:
-    # Full URL of SQS which will be polled to identify new CloudTrail log events
-    # default: no default
-    sqs_url: "https://sqs.us-east-1.amazonaws.com/xxxxxxxxxxxxxx/cloudtrail-events"
+################### Cloudtrailbeat Configuration Example #########################
 
-    # AWS region
-    # default: us-east-1
-    aws_region: "us-east-1"
+############################# Cloudtrailbeat ######################################
 
-    # number of messages to fetch from SQS per retrieval
-    # default: 1
-    num_queue_fetch: 1
+cloudtrailbeat:
+  # Defines how often an event is sent to the output
+  period: 300s
 
-    # number of seconds to sleep after queue has been emptied
-    # default: 300
-    sleep_time: 300
+  # Full URL of SQS containing CloudTrail events
+  sqs_url: "https://sqs.us-east-1.amazonaws.com/xxxxxxxxxxxxxx/cloudtrail-events"
 
-    # don't purge messages from SQS after they have been successfully processed.
-    # this is useful for debug purposes.
-    # default: false
-    no_purge: true
+  # AWS region
+  aws_region: "us-east-1"
+
+  # Number of messages to fetch from SQS per retrieval.  This value can be tweaked to reduce cost.
+  num_queue_fetch: 1
+  
+  # Don't purge events from the SQS after they have been sucessfully processed.  Useful for debugging.
+  no_purge: true

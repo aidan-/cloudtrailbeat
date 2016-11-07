@@ -1,0 +1,205 @@
+{
+  "mappings": {
+    "_default_": {
+      "_all": {
+        "norms": false
+      },
+      "_meta": {
+        "version": "6.0.0-alpha1"
+      },
+      "dynamic_templates": [
+        {
+          "strings_as_keyword": {
+            "mapping": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "match_mapping_type": "string"
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "beat": {
+          "properties": {
+            "hostname": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "cloudtrail": {
+          "properties": {
+            "apiVersion": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "awsRegion": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "errorCode": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "errorMessage": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "eventID": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "eventName": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "eventSource": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "eventTime": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "eventType": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "eventVersion": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "recipientAccountID": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "requestID": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "requestParameters": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "responseElements": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "sourceIPAddress": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "userIdentity": {
+              "properties": {
+                "accessKeyId": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "accountId": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "arn": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "invokedBy": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "principalId": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "sessionContext": {
+                  "properties": {
+                    "attributes": {
+                      "properties": {
+                        "creationDate": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "mfaAuthenticated": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "sessionIssuer": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "type": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "userName": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "webIdFederationData": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "properties": {
+            "cloud": {
+              "properties": {
+                "availability_zone": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "instance_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "machine_type": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "project_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "provider": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "region": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "tags": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "order": 0,
+  "settings": {
+    "index.refresh_interval": "5s"
+  },
+  "template": "cloudtrailbeat-*"
+}

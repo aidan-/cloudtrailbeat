@@ -1,3 +1,10 @@
+/.idea
+/build
+/logs
+
+.DS_Store
+/cloudtrailbeat
+/cloudtrailbeat.test
+*.pyc
 *.swp
-cloudtrailbeat
-testconfig.yml
+test.yml
