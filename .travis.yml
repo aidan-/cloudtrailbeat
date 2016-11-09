@@ -6,7 +6,7 @@ services:
 language: go
 
 go:
-  - 1.6
+  - 1.7
 
 os:
   - linux
@@ -32,6 +32,9 @@ before_install:
   - rsync -az ${TRAVIS_BUILD_DIR}/ $HOME/gopath/src/github.com/aidan-/cloudtrailbeat/
   - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/aidan-/cloudtrailbeat/
   - cd $HOME/gopath/src/github.com/aidan-/cloudtrailbeat/
+  - go get github.com/elastic/beats || true
+  - go get github.com/Masterminds/glide
+  - glide install
 
 install:
   - true
