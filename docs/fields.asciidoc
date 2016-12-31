@@ -13,7 +13,6 @@ This document describes the fields that are exported by Cloudtrailbeat. They are
 grouped in the following categories:
 
 * <<exported-fields-beat>>
-* <<exported-fields-cloud>>
 * <<exported-fields-cloudtrailbeat>>
 
 --
@@ -68,57 +67,6 @@ Arbitrary tags that can be set per Beat and per transaction type.
 type: dict
 
 Contains user configurable fields.
-
-
-[[exported-fields-cloud]]
-== Cloud Provider Metadata Fields
-
-Metadata from cloud providers added by the add_cloud_metadata processor.
-
-
-
-[float]
-=== meta.cloud.provider
-
-example: ec2
-
-Name of the cloud provider. Possible values are ec2, gce, or digitalocean.
-
-
-[float]
-=== meta.cloud.instance_id
-
-Instance ID of the host machine.
-
-
-[float]
-=== meta.cloud.machine_type
-
-example: t2.medium
-
-Machine type of the host machine.
-
-
-[float]
-=== meta.cloud.availability_zone
-
-example: us-east-1c
-
-Availability zone in which this host is running.
-
-
-[float]
-=== meta.cloud.project_id
-
-example: project-x
-
-Name of the project in Google Cloud.
-
-
-[float]
-=== meta.cloud.region
-
-Region in which this host is running.
 
 
 [[exported-fields-cloudtrailbeat]]
@@ -207,10 +155,14 @@ If the request was made with temporary security credentials, an element that pro
 
 type: keyword
 
+The date and time when the temporary security credentials were issued.
+
 [float]
 === cloudtrail.userIdentity.sessionContext.attributes.mfaAuthenticated
 
 type: keyword
+
+The value is true if the root user or IAM user whose credentials were used for the request also was authenticated with an MFA device; otherwise, false.
 
 [float]
 === cloudtrail.userIdentity.invokedBy
@@ -278,14 +230,14 @@ If the request returns an error, the description of the error. This message incl
 [float]
 === cloudtrail.requestParameters
 
-type: keyword
+type: text
 
 The parameters, if any, that were sent with the request.
 
 [float]
 === cloudtrail.responseElements
 
-type: keyword
+type: text
 
 The response element for actions that make changes (create, update, or delete actions). If an action does not change state (for example, a request to get or list objects), this element is omitted.
 

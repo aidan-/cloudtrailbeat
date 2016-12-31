@@ -81,8 +81,11 @@ type cloudtrailEvent struct {
 	EventType          string                 `json:"eventType"`
 	APIVersion         string                 `json:"apiVersion"`
 	RecipientAccountID string                 `json:"recipientAccountID"`
-	//RequestParameters  map[string]interface{} `json:"requestParameters"`
-	//ResponseElements   map[string]interface{} `json:"responseElements"`
+
+	RequestParameters    json.RawMessage `json:"requestParameters,omitempty"`
+	ResponseElements     json.RawMessage `json:"responseElements,omitempty"`
+	RawRequestParameters string          `json:"rawRequestParameters"`
+	RawResponseElements  string          `json:"rawResponseElements"`
 }
 
 // Creates beater
@@ -211,6 +214,12 @@ func (bt *Cloudtrailbeat) publishEvents(ct cloudtrailLog) error {
 		if err != nil {
 			logp.Err("Unable to parse EventTime : %s", cte.EventTime)
 		}
+
+		//as libbeat doesn't pass the message to json.Marshal as a pointer we need to do this to ensure the RawMessage fields are not base64 encoded.
+		cte.RawRequestParameters = string(cte.RequestParameters[:])
+		cte.RawResponseElements = string(cte.ResponseElements[:])
+		cte.RequestParameters = nil
+		cte.ResponseElements = nil
 
 		be := common.MapStr{
 			"@timestamp": common.Time(timestamp),
